@@ -1,4 +1,11 @@
 document.querySelectorAll('.mg-site').forEach((site) => {
+  const header = site.querySelector('.site-header');
+  if (header) {
+    const syncHeader = () => header.classList.toggle('at-page-top', window.scrollY <= 0);
+    syncHeader();
+    window.addEventListener('scroll', syncHeader, {passive:true});
+    window.addEventListener('pageshow', syncHeader);
+  }
   const bookingAccess = new URLSearchParams(window.location.search).get('flow') === 'booking';
   const accessIntro = site.querySelector('#access .form-intro');
   if (bookingAccess && accessIntro) {
